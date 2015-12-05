@@ -7,13 +7,26 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
    end
 % can use properties, properties(Const) - read-only
    methods
-       function obj=bacteria(n1,m1)
-           %% Generates bacteria of size n1 x m1, binary matrix has random expected value of zeros (rand(1)) 
-          obj.n=n1;
-          obj.m=m1;
-          obj.binary = bacteria.zero_with_prob(rand(1),n1,m1);
-          %TODO car_types
-          obj.types = ceil(11*rand(obj.n,1)-1);%example from 0 to 10, equal probabilities
+       function obj=bacteria(varargin)
+           %% Generates bacteria of size n1 x m1, binary matrix has random expected value of zeros (rand(1))
+           % or creates object using data_matrix, functionality used by
+           % crossover function
+          if nargin==2
+              obj.n=varargin{1};
+              obj.m=varargin{2};
+              obj.binary = bacteria.zero_with_prob(rand(1),obj.n,obj.m);
+              %TODO car_types
+              obj.types = ceil(11*rand(obj.n,1)-1);%example from 0 to 10, equal probabilities
+          elseif nargin == 1
+              data_matrix = varargin{1};
+              obj.n=size(data_matrix,1);
+              obj.m=size(data_matrix,2)-1;
+              obj.binary = data_matrix(:,2:end);
+              %TODO car_types
+              obj.types = data_matrix(:,1);%example from 0 to 10, equal probabilities
+          else
+              disp('What the fuck? You can send to constructor 2 int or one matrix.');
+          end
        end 
        function dm = data_matrix(obj)
           %returns one matrix which visualises the object
@@ -40,7 +53,12 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
        function binary = get.binary(obj)
           binary = obj.binary; 
        end
-      
+       function n = get.n(obj)
+          n = obj.n; 
+       end
+       function m = get.m(obj)
+          m = obj.m; 
+       end
    end
    methods (Static)
        function x = zero_with_prob(prob,n,m)
