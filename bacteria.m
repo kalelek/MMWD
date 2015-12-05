@@ -4,6 +4,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
       types % n cars, value = type
       n %max number of cars
       m % number of tasks
+      cost % value of objective function
    end
 % can use properties, properties(Const) - read-only
    methods
@@ -17,6 +18,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               obj.binary = bacteria.zero_with_prob(rand(1),obj.n,obj.m);
               %TODO car_types
               obj.types = ceil(11*rand(obj.n,1)-1);%example from 0 to 10, equal probabilities
+              obj.cost=obj.objective_function(obj.binary,obj.types);
           elseif nargin == 1
               data_matrix = varargin{1};
               obj.n=size(data_matrix,1);
@@ -24,6 +26,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               obj.binary = data_matrix(:,2:end);
               %TODO car_types
               obj.types = data_matrix(:,1);%example from 0 to 10, equal probabilities
+              obj.cost=obj.objective_function(data_matrix(:,2:end),data_matrix(:,1));
           else
               disp('What the fuck? You can send to constructor 2 int or one matrix.');
           end
@@ -62,6 +65,27 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
        function m = get.m(obj)
           m = obj.m; 
        end
+       %% objective function
+       function   value=objective_function(binary_matrix,car_types)
+           value=0;
+           row=size(binary_matrix,1); 
+           col=size(binary_matrix,2); 
+           max_row=max(binary_matrix,[],2);% max value in row
+           for i=1:row %car cost
+               if max_row(i)>0
+                  car=car_types(i) 
+                  value=value+car_matrix(2,car); %add car cost
+               end
+           end
+           for i=1:row
+               for j=1:col
+                  if binary_matrix(i,j)==1
+                      car=car_types(i); 
+                      value=value+car_matrix(3,car)*task_matrix(1,j); %add cost of the road
+                  end
+               end
+            end
+       end
    end
    methods (Static)
        function x = zero_with_prob(prob,n,m)
@@ -72,4 +96,5 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
        end
        
    end
+   
 end
