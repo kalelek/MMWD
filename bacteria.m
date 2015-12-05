@@ -53,6 +53,9 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
        function binary = get.binary(obj)
           binary = obj.binary; 
        end
+       function b = get_binary(obj)
+           b = obj.binary;
+       end
        function n = get.n(obj)
           n = obj.n; 
        end
