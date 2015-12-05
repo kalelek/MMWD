@@ -19,6 +19,20 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
           %returns one matrix which visualises the object
           dm = [obj.types obj.binary]; 
        end
+       function mutatate(obj)
+           %% Mutates one element in data_matrix, which is equivalent to 
+           % mutating one element in types or binary
+           % works every time, so if we should use it with some set
+           % probability. 
+          n = ceil(obj.n*rand(1));
+          m = floor((1+obj.m)*rand(1));
+          if m==0
+              %TODO draw according to car_types
+              obj.types(n) = ceil(11*rand(1)-1);
+          else
+             obj.binary(n,m) = ~ obj.binary(n,m); 
+          end
+       end
        %% Get, Set functions
        function types = get.types(obj)
            types = obj.types;
