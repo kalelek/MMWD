@@ -1,5 +1,5 @@
 function x=distribution_of_car(car_matrix)
-   
+   x=zeros(1,size(car_matrix,2));
    x(1)=car_matrix(1,1); 
    for i=2:size(car_matrix,2)
        x(i)=x(i-1)+car_matrix(1,i);
