@@ -9,7 +9,7 @@ function   value=objective_function(solution_matrix,car_matrix,task_matrix,distr
             value=value+car_matrix(2,car); %dodaje koszt pojazdu
         end
     end
-    for i=1:row
+    for i=1:row % leci po ca³ej macierzy sprawdzajac czy komorki sa 1 jesli tak dodajemy koszt przejazdu
         for j=1:col
             if solution_matrix(i,j)==1
                 car=type_of_car(i,distribution_of_car); %ustawiam typ pojazdów 
