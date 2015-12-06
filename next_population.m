@@ -1,12 +1,12 @@
 function pop_next = next_population(pop)
 % parameters to connect: number_of_pairs (crossover), k - number of
 % mutations
-number_of_pairs = 24;
+number_of_pairs = 12;
 len_pop = length(pop);
 costs = get(pop,'cost');
 costs = [costs{:}]; % vector of double
-max_el = max(costs);
-costs2 = max_el - costs;% minimalization
+%max_el = max(costs);
+costs2 = 10000 - costs;% minimalization
 suma = sum(costs2);
 costs3 = cumsum(costs2);% suma== costs3(end)
 rand_val = suma*rand(1,number_of_pairs);
