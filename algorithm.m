@@ -6,7 +6,7 @@ min_cost = min_costs;
 sol = find(costs==min_costs,1);
 sol = pop(sol);
 
-for i=1:100
+for i=1:7500
     pop = next_population(pop); 
     costs = get(pop,'cost');
     costs = [costs{:}];

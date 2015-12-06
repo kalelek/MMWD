@@ -1,5 +1,5 @@
 function pop = generate_population()
-size_of_binary = 5;
+size_of_binary = 50;
 number_of_pop = 20;
 b=bacteria(size_of_binary,size_of_binary);
 
