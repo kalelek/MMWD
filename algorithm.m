@@ -5,8 +5,8 @@ min_costs = min(costs);
 min_cost = min_costs;
 sol = find(costs==min_costs,1);
 sol = pop(sol);
-
-for i=1:100
+tic
+for i=1:2000
     pop = next_population(pop); 
     costs = get(pop,'cost');
     costs = [costs{:}];
@@ -17,6 +17,7 @@ for i=1:100
         sol = pop(sol);
     end
 end
+toc
 plot(min_costs)
 sol.data_matrix()
 get(sol,'cost')
