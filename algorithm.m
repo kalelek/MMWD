@@ -6,7 +6,7 @@ min_cost = min_costs;
 sol = find(costs==min_costs,1);
 sol = pop(sol);
 tic
-for i=1:2000
+for i=1:50
     pop = next_population(pop); 
     costs = get(pop,'cost');
     costs = [costs{:}];
@@ -15,6 +15,8 @@ for i=1:2000
         min_cost = min_costs(i+1);
         sol = find(costs==min_cost,1);
         sol = pop(sol);
+        sol = bacteria(sol.data_matrix());
+        %get(sol,'cost')
     end
 end
 toc

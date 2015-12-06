@@ -22,7 +22,8 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               % TODO car_types
               obj.types = ceil(11*rand(obj.n,1)-1);%example from 0 to 10, equal probabilities
               % TODO substitute test
-              obj.cost = bacteria.objective_function(obj);
+              %obj.cost = bacteria.objective_function(obj);
+              obj.cost = bacteria.objective_test(obj);
           elseif nargin == 1
               data_matrix = varargin{1};
               obj.n=size(data_matrix,1);
@@ -31,7 +32,8 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               % TODO car_types
               obj.types = data_matrix(:,1);%example from 0 to 10, equal probabilities
               % TODO substitute test
-              obj.cost = bacteria.objective_function(obj);
+              %obj.cost = bacteria.objective_function(obj);
+              obj.cost = bacteria.objective_test(obj);
           else
               disp('What the fuck? You can send to constructor 2 int or one matrix.');
           end
@@ -54,7 +56,8 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
              obj.binary(n,m) = ~ obj.binary(n,m); 
           end
           % TODO substitute objective_test
-          obj.cost = bacteria.objective_function(obj);
+          %obj.cost = bacteria.objective_function(obj);
+          obj.cost = bacteria.objective_test(obj);
        end
        %% Get, Set functions
        function types = get.types(obj)
