@@ -1,11 +1,11 @@
 function pop_next = next_population(pop)
 
-number_of_pairs = 6;
+number_of_pairs = 12;
 len_pop = length(pop);
 costs = get(pop,'cost');
 costs = [costs{:}]; % vector of double
-max_el = max(costs);
-costs2 = max_el - costs;% minimalization
+%max_el = max(costs);
+costs2 = 10000 - costs;% minimalization
 suma = sum(costs2);
 costs3 = cumsum(costs2);% suma== costs3(end)
 rand_val = suma*rand(1,number_of_pairs);
@@ -35,7 +35,7 @@ pop_next(1,2*number_of_pairs+1:len_pop)=pop(index_of_sort(1:len_pop-2*number_of_
 % sort(costs)
 
 % mutation, draw k elements and mutate
-k=4;
+k=8;
 ind = ceil(len_pop*rand(1,k));
 for i = ind
     pop_next(i).mutate()

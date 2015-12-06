@@ -22,7 +22,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               % TODO car_types
               obj.types = ceil(11*rand(obj.n,1)-1);%example from 0 to 10, equal probabilities
               % TODO substitute test
-              obj.cost = bacteria.objective_test(obj);
+              obj.cost = bacteria.objective_function(obj);
           elseif nargin == 1
               data_matrix = varargin{1};
               obj.n=size(data_matrix,1);
@@ -31,7 +31,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               % TODO car_types
               obj.types = data_matrix(:,1);%example from 0 to 10, equal probabilities
               % TODO substitute test
-              obj.cost = bacteria.objective_test(obj);
+              obj.cost = bacteria.objective_function(obj);
           else
               disp('What the fuck? You can send to constructor 2 int or one matrix.');
           end
@@ -54,7 +54,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
              obj.binary(n,m) = ~ obj.binary(n,m); 
           end
           % TODO substitute objective_test
-          obj.cost = bacteria.objective_test(obj);
+          obj.cost = bacteria.objective_function(obj);
        end
        %% Get, Set functions
        function types = get.types(obj)
@@ -90,28 +90,28 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
            
        end
         %% objective function
-%        function   value=objective_function(binary_matrix,car_types)% binary, types
-%            value=0;
-%            row=size(binary_matrix,1); 
-%            col=size(binary_matrix,2); 
-%            max_row=max(binary_matrix,[],2);% max value in row
-%            for i=1:row %car cost
-%                if max_row(i)>0
-%                   car=car_types(i) 
-%                   value=value+car_matrix(2,car); %add car cost
-%                end
-%            end
-%            for i=1:row
-%                for j=1:col
-%                   if binary_matrix(i,j)==1
-%                       car=car_types(i); 
-%                       value=value+car_matrix(3,car)*task_matrix(1,j); %add cost of the road
-%                       % car_matrix - col 
-%                       % task_matrix
-%                   end
-%                end
-%             end
-%        end
+       function   value=objective_function(obj)% binary, types
+           global task_matrix;
+           global car_matrix;
+           value=0;
+           row=size(obj.binary,1); 
+           col=size(obj.binary,2); 
+           max_row=max(obj.binary,[],2);% max value in row
+           for i=1:row %car cost
+               if max_row(i)>0 && obj.types(i)>0
+                  value=value+car_matrix(2,obj.types(i)); %add car cost
+               end
+           end
+           for i=1:row
+               for j=1:col
+                  if obj.binary(i,j)==1 && obj.types(i)>0
+                      value=value+car_matrix(3,obj.types(i))*task_matrix(1,j); %add cost of the road
+                      % car_matrix - col 
+                      % task_matrix
+                  end
+               end
+            end
+       end
        
    end
 
