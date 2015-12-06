@@ -53,6 +53,8 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
           else
              obj.binary(n,m) = ~ obj.binary(n,m); 
           end
+          % TODO substitute objective_test
+          obj.cost = bacteria.objective_test(obj);
        end
        %% Get, Set functions
        function types = get.types(obj)
