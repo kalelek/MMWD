@@ -112,5 +112,6 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
 %        end
        
    end
+
    
 end
