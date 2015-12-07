@@ -1,11 +1,11 @@
 function pop = generate_population()
-size_of_binary = 30;
+size_of_binary = 20;
 number_of_pop = 40;
-b=bacteria(size_of_binary,size_of_binary);
+b=bacteria(30,7);
 
 %b = repmat(b,1,k2)
 for i = 2:number_of_pop
-    b(i) = bacteria(size_of_binary,size_of_binary);
+    b(i) = bacteria(30,7);
 end
 
 pop=b;

@@ -5,11 +5,11 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
       n %max number of cars
       m % number of tasks
       cost % value of objective function
-      restrictions=0; % if restrictions are not met then restrictions
+      restrictions=1; % if restrictions are not met then restrictions
    end 
 % can use properties, properties(Const) - read-only
     properties (Constant)
-        max_time=12;
+        max_time=24;
     end
    methods
        function obj=bacteria(varargin)
@@ -39,35 +39,6 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               disp('What the fuck? You can send to constructor 2 int or one matrix.');
           end
        end 
-       % copy of constructor with different name (normal method)
-       function obj=bacteria_modify(obj, varargin)
-           %% Generates bacteria of size n1 x m1, binary matrix has random expected value of zeros (rand(1))
-           % or creates object using data_matrix, functionality used by
-           % crossover function
-          if nargin==3
-              obj.n=varargin{1};
-              obj.m=varargin{2};
-              obj.binary = bacteria.zero_with_prob(rand(1),obj.n,obj.m);
-              % TODO car_types
-              obj.types = ceil(11*rand(obj.n,1)-1);%example from 0 to 10, equal probabilities
-              % TODO substitute test
-              %obj.cost = bacteria.objective_function(obj);
-              obj.cost = bacteria.objective_test(obj);
-          elseif nargin == 2
-              data_matrix = varargin{1};
-              obj.n=size(data_matrix,1);
-              obj.m=size(data_matrix,2)-1;
-              obj.binary = data_matrix(:,2:end);
-              % TODO car_types
-              obj.types = data_matrix(:,1);%example from 0 to 10, equal probabilities
-              % TODO substitute test
-              %obj.cost = bacteria.objective_function(obj);
-              obj.cost = bacteria.objective_test(obj);
-          else
-              disp('What the fuck? You can send to constructor 2 int or one matrix.');
-          end
-       end 
-       
        function dm = data_matrix(obj)
           %returns one matrix which visualises the object
           dm = [obj.types obj.binary]; 
@@ -126,7 +97,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
        function   value=objective_function(obj)% binary, types
            global task_matrix;
            global car_matrix;
-           a=0;
+         
            value=0;
            penalty=0;
            row=size(obj.binary,1); 
@@ -142,11 +113,12 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
                for j=1:col
                   if obj.binary(i,j)==1 && obj.types(i)>0
                       value=value+car_matrix(3,obj.types(i))*task_matrix(1,j); %add cost of the road
-                      time=time+task_matrix(2,j);
+                      time=time+task_matrix(3,j);
                   end
                end
                if time > obj.max_time    % over 12h, defult paramter 
                       penalty=penalty+10^6;
+                      row
                end
            end
            for j=1:col %col
