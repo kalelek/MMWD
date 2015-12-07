@@ -5,7 +5,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
       n %max number of cars
       m % number of tasks
       cost % value of objective function
-      restrictions=0; % if restrictions are not met then restrictions
+      restrictions=0; % if restrictions are not met then restrictions=1
    end 
 % can use properties, properties(Const) - read-only
     properties (Constant)
@@ -19,7 +19,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
           if nargin==2
               obj.n=varargin{1};
               obj.m=varargin{2};
-              obj.binary = bacteria.zero_with_prob(0.5,obj.n,obj.m);
+              obj.binary = bacteria.zero_with_prob(rand(1),obj.n,obj.m);
               % TODO car_types
               obj.types = ceil(11*rand(obj.n,1)-1);%example from 1 to 10, equal probabilities
               % TODO substitute test
