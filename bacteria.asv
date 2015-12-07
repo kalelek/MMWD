@@ -5,11 +5,11 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
       n %max number of cars
       m % number of tasks
       cost % value of objective function
-      restrictions=0; % if restrictions are not met then restrictions
+      restrictions=1; % if restrictions are not met then restrictions
    end 
 % can use properties, properties(Const) - read-only
     properties (Constant)
-        max_time=12;
+        max_time=24;
     end
    methods
        function obj=bacteria(varargin)
@@ -97,7 +97,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
        function   value=objective_function(obj)% binary, types
            global task_matrix;
            global car_matrix;
-           a=0;
+         
            value=0;
            penalty=0;
            row=size(obj.binary,1); 
@@ -113,11 +113,12 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
                for j=1:col
                   if obj.binary(i,j)==1 && obj.types(i)>0
                       value=value+car_matrix(3,obj.types(i))*task_matrix(1,j); %add cost of the road
-                      time=time+task_matrix(2,j);
+                      time=time+task_matrix(3,j);
                   end
                end
                if time > obj.max_time    % over 12h, defult paramter 
                       penalty=penalty+10^6;
+                      row
                end
            end
            for j=1:col %col
