@@ -5,14 +5,13 @@ costs = [costs{:}];
 % allocation
 max_costs=zeros(1,iter);
 mean_costs=zeros(1,iter);
-std_costs=zeros(1,iter); 
+std_costs=zeros(1,iter);
 min_costs=zeros(1,iter);
 % initialzation
 max_costs(1)=max(costs);
 mean_costs(1)=mean(costs);
 std_costs(1)=std(costs); 
 min_costs(1) = min(costs);
-
 min_cost(1) = min_costs(1);
 sol = find(costs==min_cost,1);
 sol = pop(sol);

@@ -15,7 +15,7 @@ index = zeros(1,number_of_pairs);% indexes determined by drawn rand_val
 for k = 1:length(rand_val)
     index(k) = find(costs3 >= rand_val(k), 1); % i-th element to choose
 end
-index2 = ceil((len_pop-1)*rand(size(index))); 
+index2 = ceil((len_pop-1)*rand(size(index)));
 % second element is drawn with uniform distribution
 index2(index2==index)=len_pop;% getting rid of duplicates
 
@@ -41,7 +41,3 @@ ind = ceil(len_pop*rand(1,k));
 for i = ind
     pop_next(i).mutate()
 end
-
-
-
-
