@@ -23,7 +23,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               % TODO car_types
               % obj.types = ceil(11*rand(obj.n,1)-1);%example from 1 to 10, equal probabilities
               % Now it is 0 to 10. Correct:
-              obj.types = ceil(10*rand(obj.n,1));   % Random types from 1 to 10
+              obj.types = ceil(11*rand(obj.n,1))-1;   % Random types from 1 to 10
               % TODO substitute test
               obj.objective_function();
               %obj.cost = bacteria.objective_test(obj);
@@ -41,7 +41,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               obj.n=30;     % Size may be changed with some global variable
               obj.m=7;
               obj.zero_with_prob(rand(1));
-              obj.types = ceil(10*rand(obj.n,1));
+              obj.types = ceil(11*rand(obj.n,1))-1;
               obj.objective_function();
           else
               disp('What the fuck? You can send to constructor 2 int or one matrix.');
@@ -62,7 +62,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
           col = floor((1+obj.m)*rand(1));
           if col==0
               %TODO draw according to car_types
-              obj.types(row) = ceil(10*rand(1));
+              obj.types(row) = ceil(11*rand(1))-1;
           else
               obj.binary(row,col) = ~ obj.binary(row,col); 
           end
@@ -109,14 +109,14 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
            penalty=0;
            max_row=max(obj.binary,[],2);% max value in row
            for i=1:obj.n %car cost
-               if max_row(i)>0
+               if max_row(i)>0 && obj.types(i)>0
                   value=value+car_matrix(2,obj.types(i)); %add car cost
                end
            end
            for i=1:obj.n
                time=0;
                for j=1:obj.m
-                  if obj.binary(i,j)==1
+                  if obj.binary(i,j)==1 && obj.types(i)>0
                       value=value+car_matrix(3,obj.types(i))*task_matrix(1,j); %add cost of the road
                       time=time+task_matrix(2,j);
                   end
@@ -128,7 +128,7 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
            for j=1:obj.m %col
                capacity=0;
                for i=1:obj.n %row
-                  if obj.binary(i,j)>0
+                  if obj.binary(i,j)>0 && obj.types(i)>0
                       capacity=capacity+car_matrix(4,obj.types(i));   %check index in car_matrix
                   end
                end
