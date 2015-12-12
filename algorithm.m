@@ -39,6 +39,6 @@ for i=1:iter
     end
 end
 plot(min_costs)
-sol.data_matrix()
+[solution_matrix car_matrix task_matrix]=simplify_solution_matrix(sol.data_matrix())
 get(sol,'cost')
 end
