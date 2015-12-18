@@ -25,7 +25,7 @@ rest2 = ones(1,length(restrictions))-restrictions;
 if any(rest2==1)
     costs2 = costs(rest2 == 1);
 else
-    cost2 = inf;
+    costs2 = inf;
 end
 max_costs2(1)=max(costs2);
 mean_costs2(1)=mean(costs2);
@@ -44,7 +44,7 @@ for i=1:iter
     if any(rest2==1)
         costs2 = costs(rest2 == 1);
     else
-        cost2 = inf;
+        costs2 = inf;
     end
     restrictions=get(pop,'restrictions');
     restrictions=[restrictions{:}];
@@ -56,10 +56,10 @@ for i=1:iter
     max_costs2(i+1)=max(costs2);
     mean_costs2(i+1)=mean(costs2);
     std_costs2(i+1)=std(costs2); 
-    min_costs2(i+1) = min(costs2);
+    min_costs2(i+1) = min(costs2);  
     if min_cost>min_costs2(i+1)
         min_cost = min_costs2(i+1);
-        sol = find(costs==min_cost,1);
+        sol = find( (costs==min_cost).*(restrictions==0),1);
         sol = pop(sol);
         sol = bacteria(sol.data_matrix());
         %get(sol,'cost')
