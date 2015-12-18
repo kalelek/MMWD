@@ -65,14 +65,11 @@ for i=1:iter
         %get(sol,'cost')
     end
 end
-<<<<<<< HEAD
-get(sol,'cost');
-=======
 figure(1)
 plot(min_costs)
 figure(2)
 plot(min_costs2)
 [solution_matrix car_matrix task_matrix]=simplify_solution_matrix(sol.data_matrix())
 get(sol,'cost')
->>>>>>> 8dfeaf6ca6a0a031a5d1f70d9fc1c07e983cdce2
+
 end
