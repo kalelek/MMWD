@@ -38,5 +38,7 @@ for i=1:iter
         %get(sol,'cost')
     end
 end
+count_of_restrictions=mean(count_of_restrictions)/
+[solution_matrix car_matrix task_matrix]=simplify_solution_matrix(sol.data_matrix());
 get(sol,'cost');
 end
