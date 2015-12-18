@@ -65,6 +65,8 @@ for i=1:iter
         %get(sol,'cost')
     end
 end
+
+get(sol,'cost');
 figure(1)
 plot(min_costs)
 figure(2)
