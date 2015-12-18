@@ -1,4 +1,5 @@
-function [sol, min_costs, max_costs, mean_costs, std_costs, min_costs2, max_costs2, mean_costs2, std_costs2, count_of_restrictions]=algorithm(iter)
+%function [sol, min_costs, max_costs, mean_costs, std_costs, min_costs2, max_costs2, mean_costs2, std_costs2, count_of_restrictions]=algorithm(iter)
+iter = 10;
 pop = generate_population();
 costs = get(pop,'cost');
 costs = [costs{:}];
@@ -38,6 +39,8 @@ sol = find(costs==min_cost,1);
 sol = pop(sol);
 for i=1:iter
     pop = next_population(pop); 
+    restrictions=get(pop,'restrictions');
+    restrictions=[restrictions{:}];
     costs = get(pop,'cost');
     costs = [costs{:}];
     rest2 = ones(1,length(restrictions))-restrictions;
@@ -46,8 +49,6 @@ for i=1:iter
     else
         costs2 = inf;
     end
-    restrictions=get(pop,'restrictions');
-    restrictions=[restrictions{:}];
     count_of_restrictions(i+1)=how_many_rest(restrictions);
     min_costs(i+1)=min(costs);
     max_costs(i+1)=max(costs);
@@ -72,4 +73,4 @@ plot(min_costs2)
 [solution_matrix car_matrix task_matrix]=simplify_solution_matrix(sol.data_matrix())
 get(sol,'cost')
 
-end
+%end
