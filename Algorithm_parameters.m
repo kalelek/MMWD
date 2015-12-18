@@ -10,4 +10,7 @@ global number_of_pairs
 number_of_pairs = 24;
 global number_of_mutations
 number_of_mutations = 12;
+%% car and task
+global car_matrix;
+global task_matrix;
 load car_and_task;

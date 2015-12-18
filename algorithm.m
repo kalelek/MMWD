@@ -71,4 +71,5 @@ figure(2)
 plot(min_costs2)
 [solution_matrix car_matrix task_matrix]=simplify_solution_matrix(sol.data_matrix())
 get(sol,'cost')
+
 end

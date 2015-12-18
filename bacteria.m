@@ -20,23 +20,15 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
               obj.n=varargin{1};
               obj.m=varargin{2};
               obj.zero_with_prob(rand(1));
-              % TODO car_types
-              % obj.types = ceil(11*rand(obj.n,1)-1);%example from 1 to 10, equal probabilities
-              % Now it is 0 to 10. Correct:
-              obj.types = ceil(11*rand(obj.n,1))-1;   % Random types from 1 to 10
-              % TODO substitute test
+              obj.types = ceil(11*rand(obj.n,1))-1;   % Random types from 0 to 10
               obj.objective_function();
-              %obj.cost = bacteria.objective_test(obj);
           elseif nargin == 1
               data_matrix = varargin{1};
               obj.n=size(data_matrix,1);
               obj.m=size(data_matrix,2)-1;
               obj.binary = data_matrix(:,2:end);
-              % TODO car_types
               obj.types = data_matrix(:,1);%example from 0 to 10, equal probabilities
-              % TODO substitute test
               obj.objective_function();
-              %obj.cost = bacteria.objective_test(obj);
           elseif nargin==0  % Every class should have default constructor
               obj.n=30;     % Size may be changed with some global variable
               obj.m=7;
@@ -62,14 +54,11 @@ classdef bacteria < matlab.mixin.SetGet % because of it we can use get(obj_h,'bi
           row = ceil(obj.n*rand(1));
           col = floor((1+obj.m)*rand(1));
           if col==0
-              %TODO draw according to car_types
               obj.types(row) = ceil(11*rand(1))-1;
           else
               obj.binary(row,col) = ~ obj.binary(row,col); 
           end
-          % TODO substitute objective_test
           obj.objective_function();
-          %obj.cost = bacteria.objective_test(obj);
        end
        
        %% Get, Set functions

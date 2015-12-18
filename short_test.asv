@@ -1,0 +1,25 @@
+function [sols,times,min,max, ]=short_test(it,iter)
+    it=5;
+    sols=zeros(1,it);
+    times=zeros(1,it);
+    min=zeros(it,iter); % it- ile razy wykonujemy algorytm
+    max=zeros(it,iter); % iter - ilosc iteracji w algorytmie
+    mean=zeros(it,iter);
+    std=zeros(it,iter);
+    rest=zeros(it,iter);
+    Algorithm_parameters;
+    min=zeros(1,5);
+    times=zeros(1,5);
+    minimum=zeros(1,5);
+    temp_time=zeros(1,5);
+    count_of_restrictions=zeros(1,5);
+    population=[50 80 110 140 170];
+    mutation=[5 10 15 20 25];
+    crossover=[10 20 25 30 35];
+    for i=1:5
+        number_of_pop = population(i);
+        for k=1:it
+            [sols(i+k-1,:), times(i+k-1,:), min_costs(i+k-1,:) max_costs(i+k-1,:), mean_costs(i+k-1,:), std_costs(i+k-1,:), count_of_restrictions(i+k-1,:)]=test(iter); 
+        end
+    end
+end
