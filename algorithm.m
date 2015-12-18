@@ -1,5 +1,4 @@
-%function [sol, min_costs, max_costs, mean_costs, std_costs, min_costs2, max_costs2, mean_costs2, std_costs2, count_of_restrictions]=algorithm(iter)
-iter = 10;
+function [sol, min_costs, max_costs, mean_costs, std_costs, min_costs2, max_costs2, mean_costs2, std_costs2, count_of_restrictions]=algorithm(iter)
 pop = generate_population();
 costs = get(pop,'cost');
 costs = [costs{:}];
@@ -68,11 +67,10 @@ for i=1:iter
 end
 
 get(sol,'cost');
-figure(1)
-plot(min_costs)
-figure(2)
-plot(min_costs2)
-[solution_matrix car_matrix task_matrix]=simplify_solution_matrix(sol.data_matrix())
-get(sol,'cost')
+figure(1);
+plot(min_costs);
+figure(2);
+plot(min_costs2);
+[solution_matrix car_matrix task_matrix]=simplify_solution_matrix(sol.data_matrix());
 
 %end
