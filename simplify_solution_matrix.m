@@ -9,7 +9,7 @@ function [simplified_matrix,car_solution,task_solution ]=simplify_solution_matri
     car_solution=zeros(1,max(simplified_matrix(:,1)));
     for i=1:size(simplified_matrix,1)
             car_solution(simplified_matrix(i,1))=car_solution(simplified_matrix(i,1))+1;
-    end 
+    end
     % task solution
     task_solution=zeros(max(simplified_matrix(:,1)),size(data_matrix,2)-1);
     for i=2:size(simplified_matrix,2) %col

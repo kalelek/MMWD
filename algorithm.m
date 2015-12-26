@@ -62,15 +62,11 @@ for i=1:iter
         sol = find( (costs==min_cost).*(restrictions==0),1);
         sol = pop(sol);
         sol = bacteria(sol.data_matrix());
-        %get(sol,'cost')
+        %get(sol,'cost');
     end
 end
 
 get(sol,'cost');
-figure(1);
-plot(min_costs);
-figure(2);
-plot(min_costs2);
-[solution_matrix car_matrix task_matrix]=simplify_solution_matrix(sol.data_matrix());
-
-%end
+[solution_matrix, car_matrix, task_matrix]=simplify_solution_matrix(sol.data_matrix());
+show(sol, iter, mean_costs, min_costs, max_costs, std_costs, solution_matrix, car_matrix, task_matrix);
+end
